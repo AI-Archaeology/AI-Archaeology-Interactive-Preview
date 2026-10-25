@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>浏览器运行R与Python｜AI考古学导论</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#24313a;line-height:1.7}*{box-sizing:border-box}body{margin:0;background:#fff}main{max-width:940px;margin:auto;padding:28px 18px 70px}h1{font-size:1.85rem}h2{font-size:1.2rem}p{max-width:850px}.note{padding:13px 17px;background:#f2f7f8;border-left:4px solid #176b79}.panel{border:1px solid #d7e2e7;border-radius:10px;padding:18px;margin-top:22px}textarea{width:100%;min-height:230px;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid #b1c2c8;border-radius:7px;padding:12px}button,input{font:inherit}button{padding:9px 14px;border:1px solid #176b79;border-radius:7px;background:#176b79;color:white;cursor:pointer;margin:7px 7px 7px 0}button.secondary{background:white;color:#176b79}button:disabled{opacity:.55;cursor:wait}button:focus-visible,textarea:focus-visible{outline:3px solid #f1aa40;outline-offset:2px}pre{background:#f4f7f8;border:1px solid #d7e2e7;border-radius:7px;padding:13px;overflow:auto;white-space:pre-wrap;min-height:55px}.status{font-weight:600;color:#176b79}.small{font-size:.86rem;color:#586b75}details{margin-top:12px;padding:10px;border:1px solid #d7e2e7;border-radius:7px}summary{cursor:pointer;font-weight:600}@media(max-width:550px){main{padding:18px 12px}textarea{font-size:13px;min-height:250px}.panel{padding:12px}}
+</style></head><body><main>
+<p class="small">《AI考古学导论》· 浏览器代码试点 V1 · 独立技术实验</p>
+<h1>改变分类阈值：让R和Python回答同一个问题</h1>
+<p>八件模拟陶片的器壁厚度分别为5、9、6、8、7、4、10、5 mm。请修改代码中的阈值（初始6 mm），点击运行，比较薄壁和厚壁的数量。</p>
+<div class="note"><strong>教学模拟数据：</strong>这八条记录并非真实发掘数据。改变分组阈值只会改变人为分类，不足以证明年代、工艺传统或文化群体。运行时通过公共CDN下载WebAssembly及依赖，首次加载需要网络，设备支持情况待核。</div>
+<section class="panel"><h2>Python｜Pyodide</h2>
+<label for="python-code">可编辑Python代码</label>
+<textarea id="python-code" spellcheck="false">thickness = [5, 9, 6, 8, 7, 4, 10, 5]
+threshold = 6
+thin = sum(x <= threshold for x in thickness)
+thick = len(thickness) - thin
+print(f"阈值 {threshold} mm：薄壁 {thin} 件，厚壁 {thick} 件")</textarea>
+<div><button id="python-load">加载Python运行环境</button><button id="python-run" disabled>运行Python</button><button class="secondary" id="python-reset">恢复示例</button></div>
+<p class="status" id="python-status" role="status">尚未加载</p><pre id="python-output" aria-live="polite">预期基线：阈值6 mm，薄壁4件，厚壁4件。</pre></section>
+<section class="panel"><h2>R｜webR</h2>
+<label for="r-code">可编辑R代码</label>
+<textarea id="r-code" spellcheck="false">thickness <- c(5, 9, 6, 8, 7, 4, 10, 5)
+threshold <- 6
+thin <- sum(thickness <= threshold)
+thick <- length(thickness) - thin
+cat(sprintf("阈值 %d mm：薄壁 %d 件，厚壁 %d 件\n", threshold, thin, thick))</textarea>
+<div><button id="r-load">加载R运行环境</button><button id="r-run" disabled>运行R</button><button class="secondary" id="r-reset">恢复示例</button></div>
+<p class="status" id="r-status" role="status">尚未加载</p><pre id="r-output" aria-live="polite">预期基线：阈值6 mm，薄壁4件，厚壁4件。</pre></section>
+<section class="panel"><h2>比较与解释</h2><p>请将两个代码块中的阈值都改成7 mm，重新运行。预期薄壁5件、厚壁3件。再试9 mm，预期7件与1件。</p>
+<details><summary>提示</summary><p>先只修改threshold，不修改thickness。检查两个语言的输出是否一致，再讨论分组为何变化。</p></details>
+<details><summary>参考解释</summary><p>阈值是研究者设置的操作性规则。不同阈值产生不同分组，说明分类结果依赖分析选择；这不是器物本身或历史事实发生变化。真实考古研究还需要地层、制作痕迹、原料、用途和样本代表性等独立证据。</p></details>
+<p class="small">运行环境加载失败时，可阅读代码与上方经过人工计算核验的静态预期输出。此页面不上传或保存你的代码，但运行时资源需要从第三方CDN下载。</p></section>
+<script type="module">
+const PY_URL="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.mjs";
+const R_URL="https://webr.r-wasm.org/v0.5.7/webr.mjs";
+const $=id=>document.getElementById(id);
+const defaults={python:$("python-code").value,r:$("r-code").value};
+let py=null,webR=null;
+function state(lang,msg){$(lang+"-status").textContent=msg}
+function errorText(e){return String(e?.message||e)}
+$("python-load").onclick=async()=>{const b=$("python-load");b.disabled=true;state("python","正在下载并初始化Pyodide…");try{const {loadPyodide}=await import(PY_URL);py=await loadPyodide({indexURL:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"});$("python-run").disabled=false;state("python","Python运行环境已就绪")}catch(e){state("python","加载失败："+errorText(e));b.disabled=false}};
+$("python-run").onclick=async()=>{if(!py)return;const b=$("python-run");b.disabled=true;state("python","运行中…");try{const code=$("python-code").value;py.runPython("import sys, io\n_ai_out = io.StringIO()\n_ai_old = sys.stdout\nsys.stdout = _ai_out");try{await py.runPythonAsync(code)}finally{py.runPython("sys.stdout = _ai_old")};$("python-output").textContent=py.runPython("_ai_out.getvalue()")||"运行完成（无文本输出）";state("python","运行完成")}catch(e){$("python-output").textContent=errorText(e);state("python","执行失败")}finally{b.disabled=false}};
+$("python-reset").onclick=()=>{$("python-code").value=defaults.python;$("python-output").textContent="预期基线：阈值6 mm，薄壁4件，厚壁4件。";state("python",py?"已恢复示例代码和静态预期结果；点击运行Python重新计算":"已恢复示例代码和静态预期结果；尚未加载Python运行环境")};
+$("r-load").onclick=async()=>{const b=$("r-load");b.disabled=true;state("r","正在下载并初始化webR…");try{const {WebR}=await import(R_URL);webR=new WebR();await webR.init();$("r-run").disabled=false;state("r","R运行环境已就绪")}catch(e){state("r","加载失败："+errorText(e));b.disabled=false}};
+$("r-run").onclick=async()=>{if(!webR)return;const b=$("r-run");b.disabled=true;state("r","运行中…");try{const result=await webR.evalRString('paste(capture.output({'+$("r-code").value+'}), collapse="\\n")');$("r-output").textContent=result||"运行完成（无文本输出）";state("r","运行完成")}catch(e){$("r-output").textContent=errorText(e);state("r","执行失败")}finally{b.disabled=false}};
+$("r-reset").onclick=()=>{$("r-code").value=defaults.r;$("r-output").textContent="预期基线：阈值6 mm，薄壁4件，厚壁4件。";state("r",webR?"已恢复示例代码和静态预期结果；点击运行R重新计算":"已恢复示例代码和静态预期结果；尚未加载R运行环境")};
+if(window.parent!==window){
+  const reportHeight=()=>{
+    const main=document.querySelector("main");
+    if(!main)return;
+    const height=Math.ceil(main.getBoundingClientRect().bottom+24);
+    window.parent.postMessage({type:"ai-archaeology-runtime-height",height},"*");
+  };
+  if("ResizeObserver" in window)new ResizeObserver(reportHeight).observe(document.querySelector("main"));
+  window.addEventListener("load",reportHeight);
+  window.addEventListener("resize",reportHeight);
+  document.querySelectorAll("details").forEach(d=>d.addEventListener("toggle",reportHeight));
+  reportHeight();
+}
+</script></main></body></html>
