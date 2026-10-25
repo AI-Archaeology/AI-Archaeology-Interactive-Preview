@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>陶片分类实验 V1｜AI考古学导论</title>
+<style>
+:root{--ink:#24313a;--muted:#617078;--teal:#196b78;--line:#dce5e8;--soft:#f3f8f9}*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:1050px;margin:auto;padding:26px 20px 70px}h1{font-size:clamp(1.5rem,3vw,2.1rem);margin:.1rem 0}.eyebrow{color:var(--teal);font-weight:700;letter-spacing:.09em;font-size:.78rem}
+.lead{max-width:820px}.notice{border-left:4px solid var(--teal);background:var(--soft);padding:10px 15px;margin:20px 0}
+.panel{border:1px solid var(--line);border-radius:12px;padding:20px;margin:22px 0}h2{font-size:1.2rem;margin:0 0 12px}
+.controls{display:flex;flex-wrap:wrap;align-items:end;gap:14px}label{font-weight:650;display:block;margin-bottom:5px}
+select,button,textarea{font:inherit;border:1px solid #9eafb6;border-radius:8px;padding:9px;background:#fff;color:var(--ink)}
+button{cursor:pointer}button.primary{background:var(--teal);color:white;border-color:var(--teal)}button:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #e7a53a;outline-offset:2px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.sherd{border:1px solid var(--line);border-radius:10px;padding:13px;background:#fff}.sherd svg{width:100%;height:105px;display:block;background:#faf8f2;border-radius:6px}.sherd b{display:block;margin-top:5px}.small{font-size:.88rem;color:var(--muted)}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.group{border:1px solid var(--line);border-radius:10px;padding:13px;background:var(--soft)}.group strong{display:block;color:var(--teal)}
+table{border-collapse:collapse;width:100%}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}th{background:var(--soft)}
+textarea{width:100%;min-height:95px}details{border:1px solid var(--line);border-radius:9px;padding:12px 15px;margin-top:12px}summary{cursor:pointer;font-weight:650}
+footer{font-size:.85rem;color:var(--muted);margin-top:25px}
+@media(max-width:560px){main{padding:18px 12px 50px}.panel{padding:13px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.sherd{padding:8px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+ .compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.compare .group{min-width:0}.threshold{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.threshold input{accent-color:var(--teal);width:min(300px,65vw);max-width:100%;min-width:0;touch-action:pan-y}@media(max-width:600px){.compare{grid-template-columns:1fr}.threshold{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}.threshold[hidden]{display:none}.threshold input{width:100%}.controls{align-items:stretch}.controls button{min-height:44px}} </style></head><body><main>
+<div class="eyebrow">AI考古学导论 · 无代码互动原型 V2</div>
+<h1>同一组陶片，可以分成几种类型？</h1>
+<p class="lead">考古类型不是从器物上自动读出的答案。改变观察标准，分组就可能变化。请先观察八条记录，再切换分类规则，比较不同结果能回答哪些考古问题。</p>
+<div class="notice"><strong>资料性质：</strong>下列八件陶片、形态示意及属性均为专门编制的教学模拟数据，不来自真实遗址，也不代表任何考古文化。示意图不是实物照片。</div>
+<section class="panel" aria-labelledby="materials"><h2 id="materials">第一步｜观察材料</h2><div class="cards" id="cards"></div></section>
+<section class="panel" aria-labelledby="rules"><h2 id="rules">第二步｜改变分类规则</h2>
+<div class="controls"><div><label for="criterion">按照什么属性分组？</label><select id="criterion"><option value="rim">口沿形态</option><option value="decoration">纹饰</option><option value="thickness">器壁厚度</option></select></div><button id="reset" type="button">重置实验</button></div>
+<div class="threshold" id="threshold-panel" hidden><label for="threshold">薄壁上限：<output id="threshold-value" for="threshold">6</output> mm</label><input id="threshold" type="range" min="4" max="9" step="1" value="6"><span class="small">≤阈值为薄壁，>阈值为厚壁</span></div><p class="small" id="rule-explanation"></p><div id="groups" class="groups" aria-live="polite" aria-atomic="true"></div>
+<h3>每组有多少件？</h3><table><thead><tr><th scope="col">组别</th><th scope="col">数量</th><th scope="col">记录编号</th></tr></thead><tbody id="summary"></tbody></table><h3>两种分类方案并排比较</h3><p class="small">左侧固定按纹饰分组，右侧按当前规则分组。注意每组成员，而不只是组数。</p><div class="compare" id="comparison" aria-live="polite"></div><p class="small" id="change-explanation" role="status"></p></section>
+<section class="panel" aria-labelledby="interpret"><h2 id="interpret">第三步｜形成自己的解释</h2>
+<label for="reflection">哪一种分组更适合研究制作技术？哪一种更适合研究装饰习惯？还需要什么独立证据？</label>
+<textarea id="reflection" placeholder="先写下你的观察与理由……"></textarea>
+<div class="controls" style="margin-top:12px"><button id="show-hint" type="button">显示提示</button><button id="show-answer" type="button">查看参考解释</button></div>
+<details id="hint"><summary>提示</summary><p>不同分类标准不一定互相排斥。想想厚度、口沿和纹饰各自可能与哪些制作或使用行为有关。模拟数据本身不能证明任何历史关系。</p></details>
+<details id="answer"><summary>参考解释（不是唯一答案）</summary><p>按器壁厚度分组可以提出关于制作工艺和器物用途的假说；按纹饰分组可以讨论装饰选择；按口沿形态分组则适合比较器形局部特征。但这些只是研究起点。要解释制作传统、年代或社会群体，还需要地层、原料、成形痕迹、使用痕迹及更大的样本。计算分组不能代替这些证据。</p></details>
+<p class="small">本页不上传或保存你的文字。重置会清空输入并恢复初始分类。</p></section>
+<footer>原型状态：教学设计验证版 · 原生HTML/CSS/JavaScript · 无第三方运行时 · 无外部网络请求 · 数据为模拟记录</footer>
+</main>
+<script>
+"use strict";
+const data=[
+{id:"S01",rim:"外侈",decoration:"绳纹",thickness:5},
+{id:"S02",rim:"直口",decoration:"素面",thickness:9},
+{id:"S03",rim:"内敛",decoration:"刻划纹",thickness:6},
+{id:"S04",rim:"外侈",decoration:"素面",thickness:8},
+{id:"S05",rim:"直口",decoration:"绳纹",thickness:7},
+{id:"S06",rim:"内敛",decoration:"素面",thickness:4},
+{id:"S07",rim:"外侈",decoration:"刻划纹",thickness:10},
+{id:"S08",rim:"直口",decoration:"绳纹",thickness:5}
+];
+const $=id=>document.getElementById(id);
+const criterion=$("criterion");
+const categories={rim:["外侈","直口","内敛"],decoration:["素面","绳纹","刻划纹"]};
+const descriptions={rim:"口沿形态：按外侈、直口和内敛分组。",decoration:"纹饰：按素面、绳纹和刻划纹分组。",thickness:"器壁厚度：薄壁与厚壁的界限由你设置，属于教学规则而非考古学通用标准。"};
+function labels(c){const t=Number($("threshold").value);return c==="thickness"?["薄（≤"+t+" mm）","厚（>"+t+" mm）"]:categories[c]}
+function key(r,c){return c==="thickness"?(r.thickness<=Number($("threshold").value)?labels(c)[0]:labels(c)[1]):r[c]}
+function groupsFor(c){const m=new Map(labels(c).map(x=>[x,[]]));data.forEach(r=>m.get(key(r,c)).push(r.id));return m}
+function groupMarkup(m){return Array.from(m,([name,ids])=>'<div class="group"><strong>'+name+' · '+ids.length+'件</strong><span>'+ids.join("、")+'</span></div>').join("")}
+function illustration(r){const rims={外侈:"M22 34 L12 18 M78 34 L88 18",直口:"M22 34 L22 18 M78 34 L78 18",内敛:"M22 34 L34 18 M78 34 L66 18"};
+const decor=r.decoration==="素面"?"":r.decoration==="绳纹"?'<path d="M32 57 l10 9 10 -9 10 9 8 -9" stroke="#9c6d4c" fill="none" stroke-width="2"/>':'<path d="M35 54 l8 15 m5 -15 l8 15 m5 -15 l8 15" stroke="#9c6d4c" stroke-width="2"/>';
+return '<svg viewBox="0 0 100 95" role="img" aria-label="模拟陶片轮廓，'+r.rim+'，'+r.decoration+'"><path d="'+rims[r.rim]+'" stroke="#8e6249" stroke-width="5" fill="none"/><path d="M22 34 Q25 66 35 82 L65 82 Q75 66 78 34" fill="#dfbb91" stroke="#8e6249" stroke-width="'+Math.max(3,r.thickness/2)+'"/>'+decor+'</svg>'}
+function renderCards(){$("cards").innerHTML=data.map(r=>'<article class="sherd">'+illustration(r)+'<b>'+r.id+'</b><div class="small">口沿：'+r.rim+'<br>纹饰：'+r.decoration+'<br>厚度：'+r.thickness+' mm</div></article>').join("")}
+function render(){const c=criterion.value;const map=groupsFor(c);const t=Number($("threshold").value);
+$("threshold-panel").hidden=c!=="thickness";$("threshold-value").textContent=String(t);
+$("rule-explanation").textContent=descriptions[c];$("groups").innerHTML=groupMarkup(map);
+$("summary").innerHTML=Array.from(map,([name,ids])=>'<tr><th scope="row">'+name+'</th><td>'+ids.length+'</td><td>'+ids.join("、")+'</td></tr>').join("");
+$("comparison").innerHTML='<section><h4>方案A｜纹饰</h4>'+groupMarkup(groupsFor("decoration"))+'</section><section><h4>方案B｜'+({rim:"口沿",decoration:"纹饰",thickness:"厚度"}[c])+'</h4>'+groupMarkup(map)+'</section>';
+const thin=data.filter(r=>r.thickness<=t).length;
+$("change-explanation").textContent=c==="thickness"?"厚度界限设为"+t+" mm：薄壁"+thin+"件，厚壁"+(data.length-thin)+"件。改变界限只改变人为分组，不会改变器物本身。":c==="decoration"?"左右采用同一标准，结果一致；试试其他规则，观察成员变化。":"两种方案的组数可能相同，但组内成员不同。分类标准需要服务于明确的考古问题。";
+}
+criterion.addEventListener("change",render);
+$("threshold").addEventListener("input",render);
+$("reset").addEventListener("click",()=>{criterion.value="rim";$("threshold").value="6";$("reflection").value="";$("hint").open=false;$("answer").open=false;render();criterion.focus()});
+$("show-hint").addEventListener("click",()=>{$("hint").open=!$("hint").open});
+$("show-answer").addEventListener("click",()=>{$("answer").open=!$("answer").open});
+renderCards();render();
+</script></body></html>
