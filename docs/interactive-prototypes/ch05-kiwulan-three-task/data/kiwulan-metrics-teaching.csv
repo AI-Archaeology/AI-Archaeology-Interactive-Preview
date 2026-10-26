@@ -1,0 +1,363 @@
+record_key,source_record,Part,period,Dia_Rim_ave,Thick_Rim_ave
+P040_04_145,1,pot,post-e,120,2.25
+P040_04_181,2,rim,post-e,128,2.75
+P041_01_024,3,pot or steamer,ch-con,150,5.5
+P041_04_133,4,pot,post-e,114,1.75
+P042_01_647,5,pot,post-e,115,2.65
+P042_01_897,6,pot or steamer,post-e,116.75,3
+P042_01_898,7,pot or steamer,post-e,116.5,1.9000000000000001
+P042_02_016,8,pot or steamer,pre-e,130,2.7
+P042_02_180,9,pot,pre-e,110,2.75
+P042_02_190,10,pot,pre-e,121.5,1.75
+P042_02_191,11,pot or steamer,pre-e,102.75,1.75
+P042_02_600,12,pot,pre-e,114,2.5
+P042_03_157,13,pot,pre-e,125,2.25
+P042_04_056,14,pot,pre-e,129,2
+P051_05_001,15,pot or steamer,ch-con,110,3.15
+P051_09_226,16,rim,post-e,114,1.85
+P051_09_262,17,pot,post-e,120,3.15
+P051_10_155,18,pot,post-e,120,2.25
+P051_10_174,19,rim,post-e,160,3
+P051_10_370,20,pot or steamer,post-e,110,2.75
+P051_10_372,21,pot or steamer,post-e,119.5,2.15
+P051_10_375,22,rim,post-e,113,2.25
+P051_10_509,23,pot or steamer,post-e,115,1.9
+P051_10_529,24,pot or steamer,post-e,112,2.55
+P051_10_569,25,pot or steamer,post-e,140,1.9500000000000002
+P051_11_307,26,pot or steamer,post-e,120,2.25
+P051_11_308,27,pot,post-e,115.5,2
+P051_11_309,28,pot,post-e,110,2
+P051_11_310,29,pot or steamer,post-e,115.5,1.55
+P051_11_311,30,pot,post-e,127.25,2.4
+P051_12_129,31,pot,post-e,123.5,2.65
+P051_12_144,32,pot,post-e,120,2.75
+P052_02_057,33,pot,ch-con,120,3
+P052_07_025,34,pot,post-e,122,3.25
+P052_07_105,35,pot,post-e,130,2.5
+P052_08_090,36,pot or steamer,post-e,120,2.3
+P052_09_028,37,pot,pre-e,126,2.25
+P053_01_015,38,pot or steamer,ch-con,120.5,4.5
+P053_01_124,39,rim,ch-con,112.5,3.4
+P053_02_034,40,pot,ch-con,118,4.9
+P053_02_151,41,pot,ch-con,118,3.25
+P053_03_027,42,rim,ch-con,125,3.8
+P053_03_028,43,rim,ch-con,120,4.25
+P053_03_080,44,base,ch-con,NaN,NaN
+P053_03_121,45,pot or steamer,ch-con,118,2
+P053_05_027,46,pot or steamer,post-e,115,2.7
+P053_08_295,47,pot or steamer,post-e,120,1.85
+P053_09_221,48,pot,pre-e,126,2.25
+P053_10_134,49,pot,pre-e,116,2.1
+P053_11_010,50,rim,pre-e,120,1.75
+P053_11_065,51,pot,pre-e,116,2
+P053_11_068,52,pot,pre-e,122.5,2.25
+P053_12_024,53,pot or steamer,pre-e,117,2.05
+P053_12_025,54,pot,pre-e,116,2.15
+P053_12_026,55,pot,pre-e,122,2.75
+P053_12_027,56,pot or steamer,pre-e,114,2.25
+P054_02_232,57,pot,post-e,109.25,2.5
+P054_04_564,58,pot or steamer,post-e,110,2
+P054_04_771,59,flat pot,post-e,41,1
+P054_05_068,60,pot,pre-e,120,2
+P059_03_037,61,pot,ch-con,110,3.5
+P059_04_148,62,pot,post-e,109,5
+P060_07_513,63,pot,post-e,118,2.25
+P061_03_123,64,pot,ch-con,113,3.35
+P061_09_300,65,pot or steamer,post-e,125,2.4000000000000004
+P061_11_001,66,pot,pre-e,126,2.65
+P062_03_060,67,rim,ch-con,115,3.25
+P062_03_066,68,pot,ch-con,132.75,4.4
+P062_03_152,69,rim,ch-con,124.25,4.5
+P062_06_082,70,pot or steamer,post-e,131,4.1
+P062_08_540,71,pot or steamer,post-e,117,3.1
+P063_03_002,72,pot,ch-con,120,3.65
+P063_06_069,73,base,post-e,NaN,NaN
+P063_08_139,74,pot or steamer,post-e,111.5,4.2
+P063_08_224,75,pot,post-e,117,3.55
+P063_08_230,76,pot,post-e,118,3.05
+P063_08_234,77,pot,post-e,119.5,4
+P063_09_022,78,pot or steamer,post-e,112.25,3.25
+P063_09_318,79,pot,post-e,108.5,3
+P063_09_319,80,pot or steamer,post-e,113,2.9
+P063_09_328,81,rim,post-e,121.5,4
+P063_09_330,82,pot or steamer,post-e,110.75,2.5
+P063_09_331,83,pot,post-e,120,2.5
+P063_10_099,84,pot,pre-e,120,3.25
+P063_11_157,85,pot or steamer,pre-e,112,3.2
+P063_12_026,86,pot or steamer,pre-e,106,4
+P064_04_001,87,pot,ch-con,120.5,4
+P064_06_035,88,pot,post-e,125.5,3.35
+P064_08_474,89,pot or steamer,post-e,110,2.8
+P064_09_359,90,pot,post-e,120,2.8
+P064_11_006,91,pot or steamer,pre-e,109,2.5
+P065_04_056,92,pot,post-e,112.5,4.5
+P065_05_075,93,pot or steamer,post-e,107,4
+P065_05_076,94,pot,post-e,108,3.75
+P065_05_089,95,pot,post-e,115,3.45
+P065_05_135,96,pot,post-e,123,3.25
+P065_10_026,97,pot,pre-e,114.5,4
+P066_04_014,98,pot or steamer,post-e,125,3.75
+P066_04_016,99,pot or steamer,post-e,121,4
+P066_04_046,100,base,post-e,NaN,NaN
+P066_09_069,101,rim,pre-e,120,3.2
+P066_09_070,102,rim,pre-e,107,2.5999999999999996
+P066_09_092,103,pot or steamer,pre-e,128,2.05
+P066_09_096,104,pot or steamer,pre-e,116.5,2.05
+P066_09_099,105,pot or steamer,pre-e,120,2.05
+P066_09_132,106,pot or steamer,pre-e,130,2
+P066_09_133,107,rim,pre-e,125,2.25
+P067_01_019,108,pot,ch-con,120,3.6
+P067_04_008,109,rim,post-e,119.5,2.5
+P067_04_080,110,pot or steamer,post-e,116.25,3.9
+P067_06_002,111,rim,pre-e,114.25,2.75
+P067_06_144,112,rim,pre-e,115,3.15
+P071_02_109,113,base,ch-con,NaN,NaN
+P071_05_630,114,pot or steamer,post-e,120,3.5
+P071_05_822,115,pot or steamer,post-e,110,3.5
+P071_06_577,116,pot or steamer,post-e,120,2.45
+P071_06_578,117,pot,post-e,115,2
+P071_06_580,118,pot or steamer,post-e,120,3.15
+P071_08_010,119,pot,pre-e,116,2.25
+P071_08_011,120,pot,pre-e,112,1.85
+P071_08_135,121,pot or steamer,pre-e,117.75,1.9000000000000001
+P071_08_136,122,pot or steamer,pre-e,110,1.9
+P071_08_152,123,pot,pre-e,120,2.4
+P071_08_157,124,pot or steamer,pre-e,121,2.5
+P071_09_049,125,bowl,pre-e,130,2
+P072_06_051,126,pot or steamer,ch-con,110.75,5
+P072_09_198,127,pot or steamer,post-e,122,4.25
+P072_10_375,128,pot or steamer,post-e,120,2.4
+P072_11_394,129,pot,pre-e,110,2.25
+P073_11_100,130,pot,post-e,120,3.75
+P073_12_005,131,pot or steamer,pre-e,104,3.15
+P073_12_049,132,pot or steamer,pre-e,117,2.75
+P073_12_177,133,pot or steamer,pre-e,110,2.25
+P073_13_057,134,pot or steamer,pre-e,129.25,3.15
+P073_14_011,135,pot,pre-e,120,2.05
+P073_14_038,136,pot,pre-e,120,1.4
+P073_14_058,137,pot,pre-e,NaN,NaN
+P074_06_167,138,base,post-e,NaN,NaN
+P074_08_040,139,pot,post-e,NaN,NaN
+P074_08_305,140,base,post-e,NaN,NaN
+P074_08_498,141,pot,post-e,105,2.75
+P074_09_065,142,pot or steamer,post-e,120,2.0999999999999996
+P074_09_066,143,pot or steamer,post-e,120,2.75
+P074_09_602,144,pot,post-e,120,2.55
+P074_10_111,145,pot or steamer,pre-e,120,2.6
+P074_12_014,146,pot or steamer,pre-e,120,2.25
+P074_12_043,147,pot,pre-e,120,2.15
+P075_11_011,148,pot,pre-e,121.5,3.95
+P077_04_072,149,pot or steamer,ch-con,110,3.35
+P077_07_088,150,base,post-e,NaN,NaN
+P078_07_107,151,rim,post-e,117.5,2.7
+P082_01_126,152,pot or steamer,ch-con,112,2.8499999999999996
+P082_01_160,153,pot,ch-con,118.5,2.75
+P082_03_142,154,pot,post-e,119.5,2.75
+P082_04_536,155,vessel rim,post-e,64,2
+P082_04_548,156,pot,post-e,130,2.75
+P082_05_157,157,pot or steamer,pre-e,130,2.9000000000000004
+P082_05_521,158,rim,pre-e,122.5,2.25
+P082_05_633,159,pot or steamer,pre-e,125,2.25
+P083_01_193,160,rim,ch-con,122,4
+P083_01_194,161,steamer,ch-con,119,5
+P083_01_195,162,pot,ch-con,121.5,4.4
+P083_01_196,163,pot or steamer,ch-con,108,2.75
+P083_01_412,164,pot or steamer,ch-con,120,3.9000000000000004
+P084_02_166,165,rim,post-e,116.5,3.35
+P084_02_167,166,pot,post-e,107,1.9
+P084_02_226,167,rim,post-e,163,5.5
+P084_02_498,168,pot or steamer,post-e,118.5,3.75
+P084_02_676,169,pot,post-e,116,3.5
+P085_02_210,170,pot or steamer,post-e,107,3.95
+P085_03_195,171,pot or steamer,pre-e,114,2.95
+P085_04_007,172,pot,pre-e,112,2.45
+P085_04_013,173,pot or steamer,pre-e,115.5,2.5
+P085_04_023,174,pot,pre-e,120,2.75
+P085_05_297,175,pot,pre-e,130,2.15
+P085_05_331,176,pot or steamer,pre-e,119.25,2
+P085_05_494,177,rim,pre-e,155,2.25
+P085_05_783,178,pot or steamer,pre-e,112,2.2
+P085_05_796,179,pot,pre-e,117.5,2.25
+P085_05_803,180,steamer,pre-e,NaN,NaN
+P085_05_817,181,pot,pre-e,105.5,1.8
+P085_05_905,182,pot or steamer,pre-e,112,2.3
+P085_05_921,183,pot,pre-e,115.5,1.9500000000000002
+P086_02_136,184,rim,ch-con,112,5
+P086_05_284,185,pot,post-e,119,2.8
+P086_05_310,186,pot,post-e,115,3
+P086_09_029,187,pot,pre-e,120,1.75
+P087_02_043,188,pot,ch-con,112.5,3.25
+P087_06_068,189,pot,post-e,110.5,4.25
+P088_04_057,190,pot,ch-con,125.25,3.9499999999999997
+P088_05_049,191,rim,post-e,113,3.25
+P088_10_185,192,pot or steamer,pre-e,120,2.4
+P089_02_049,193,pot or steamer,ch-con,110,2.25
+P089_08_035,194,base,post-e,NaN,NaN
+P090_03_005,195,pot,ch-con,122,4
+P090_04_081,196,pot or steamer,post-e,122,3.9000000000000004
+P090_08_055,197,pot,pre-e,117,3
+P090_09_133,198,pot or steamer,pre-e,120,1.8
+P090_09_171,199,pot or steamer,pre-e,120,2.75
+P090_09_172,200,pot,pre-e,108,1.75
+P091_01_003,201,pot or steamer,ch-con,130,3.35
+P091_03_031,202,pot or steamer,post-e,112.25,4.3
+P091_06_188,203,pot or steamer,post-e,113,2.85
+P091_05_103,204,pot or steamer,post-e,121,2.6500000000000004
+P091_07_061,205,pot,pre-e,120,2.65
+P091_07_062,206,base,pre-e,NaN,NaN
+P092_08_050,207,pot or steamer,pre-e,115.5,3.3
+P092_08_062,208,pot,pre-e,100,3.5
+P092_08_065,209,pot or steamer,pre-e,95,1.65
+P092_08_066,210,rim,pre-e,110,2.75
+P092_08_067,211,pot or steamer,pre-e,120,3.8499999999999996
+P093_12_012,212,pot,pre-e,110,2.1
+H006_02_001,213,pot or steamer,post-e,110,2.65
+H021_00_007,214,pot or steamer,post-e,120,2.8
+H021_00_008,215,pot,post-e,112,2.8
+H042_00_001,216,pot,pre-e,116.75,2
+H042_00_002,217,pot,pre-e,110,2.5
+H044_00_001,218,pot,pre-e,118,2.45
+H044_00_148,219,pot,pre-e,110,1.9
+H045_00_001,220,pot or steamer,pre-e,111,1.75
+H052_00_001,221,pot,pre-e,117,2
+H054_00_008,222,pot or steamer,post-e,120,1.95
+H054_00_068,223,pot,post-e,115,2
+H054_00_069,224,pot,post-e,120,1.75
+H054_00_071,225,pot,post-e,107,2.15
+H054_00_072,226,base,post-e,NaN,NaN
+H054_00_073,227,pot or steamer,post-e,116,1.7999999999999998
+H054_00_074,228,pot,post-e,100,2.5
+H054_00_075,229,pot,post-e,117,2.3
+H054_00_076,230,pot,post-e,110,2.65
+H054_00_077,231,base,post-e,NaN,NaN
+H054_00_078,232,pot,post-e,100,1.95
+H056_00_001,233,pot or steamer,pre-e,116,1.6
+H056_00_002,234,pot or steamer,pre-e,110,1.75
+H056_00_003,235,pot or steamer,pre-e,117,1.8
+H066_00_081,236,pot or steamer,post-e,125,2.5
+H066_00_132,237,pot,post-e,120,1.95
+H066_00_151,238,pot,post-e,125,1.75
+H066_00_152,239,pot,post-e,120,2.55
+H066_00_153,240,pot,post-e,112,2.3
+H066_00_166,241,pot,post-e,120,1.75
+H066_00_167,242,pot,post-e,116,1.9000000000000001
+H066_00_168,243,pot,post-e,130,2.8
+H066_00_189,244,pot,post-e,116,3.15
+H066_00_190,245,pot,post-e,115,2.2
+H066_00_191,246,steamer,post-e,NaN,NaN
+H066_00_192,247,pot,post-e,121,2.5
+H066_00_193,248,pot,post-e,114.75,2.9000000000000004
+H066_00_227,249,pot or steamer,post-e,118,2.2
+H067_00_003,250,pot or steamer,post-e,110,2.25
+H067_00_004,251,pot,post-e,113.75,2.5
+H067_00_0273,252,pot,post-e,115.25,2.5
+H067_00_0274,253,pot,post-e,114,2.45
+H067_00_0275,254,pot or steamer,post-e,120,2.95
+H067_00_0276,255,pot or steamer,post-e,123.25,2.85
+H067_00_0278,256,pot or steamer,post-e,110,2.25
+H067_00_0279,257,pot or steamer,post-e,136,3.4
+H067_00_0283,258,rim,post-e,119.5,3
+H067_00_0286,259,rim,post-e,120,2
+H080_00_006,260,pot,pre-e,117,3.35
+H083_00_008,261,pot or steamer,pre-e,120,2.3
+H085_00_382,262,pot or steamer,post-e,117,2.45
+H085_00_384,263,pot or steamer,post-e,110,2.25
+H085_00_385,264,pot or steamer,post-e,110,2.25
+H085_00_386,265,pot or steamer,post-e,108,2.25
+H085_00_387,266,rim,post-e,122.5,2.3
+H085_00_388,267,pot,post-e,105.5,2
+H085_00_389,268,pot,post-e,122,2.5
+H091_00_465,269,pot,pre-e,110,2.45
+H091_00_470,270,steamer,pre-e,NaN,NaN
+H091_00_472,271,pot,pre-e,120,2.05
+H091_00_473,272,pot or steamer,pre-e,110,2.15
+H091_00_474,273,pot or steamer,pre-e,115.75,1.85
+H091_00_475,274,pot or steamer,pre-e,117,1.3
+H091_00_476,275,pot or steamer,pre-e,104,1.95
+H091_00_477,276,pot or steamer,pre-e,118.5,1.7999999999999998
+H091_00_478,277,pot,pre-e,105,2.1
+H091_00_479,278,pot,pre-e,119.5,1.9000000000000001
+H091_00_480,279,pot,pre-e,112.5,2.25
+H091_00_481,280,pot,pre-e,120,2.05
+H091_00_482,281,pot,pre-e,105,1.75
+H091_00_485,282,pot,pre-e,120,2.5
+H091_00_486,283,pot,pre-e,110,2.05
+H091_00_487,284,pot,pre-e,102,2.05
+H091_00_494,285,rim,pre-e,120.25,1.8
+H092_00_006,286,pot,pre-e,120,2
+H094_00_030,287,pot,pre-e,122.25,2.3
+H094_00_031,288,pot,pre-e,110,2.0999999999999996
+H094_00_033,289,pot,pre-e,120,2.25
+H094_00_037,290,pot or steamer,pre-e,124.75,1.8
+H094_00_038,291,pot,pre-e,116,1.65
+H094_00_039,292,pot,pre-e,112,1.4
+H094_00_040,293,pot,pre-e,127.25,1.55
+H099_00_003,294,pot,pre-e,113.5,1.6
+H099_00_014,295,pot,pre-e,112,1.95
+H099_00_016,296,steamer,pre-e,154,2.25
+H099_00_044,297,pot or steamer,pre-e,120,2.95
+H099_00_049,298,pot,pre-e,116,3.25
+H104_00_127,299,pot,pre-e,114.75,3
+H104_00_129,300,pot,pre-e,131,2.5
+H105_00_001,301,pot or steamer,pre-e,117.5,3
+H105_00_003,302,rim,pre-e,117,3.3
+H105_00_006,303,rim,pre-e,112,2.75
+H106_00_093,304,pot,post-e,115.5,3.05
+H107_00_006,305,pot,pre-e,121,2.35
+H108_00_130,306,pot or steamer,pre-e,116.25,3.25
+H112_00_001,307,pot,pre-e,115,1.35
+H112_00_003,308,pot,pre-e,110,2.5
+H112_00_004,309,pot,pre-e,122.5,2.65
+H112_00_005,310,pot,pre-e,120,1.75
+H112_00_006,311,pot,pre-e,112.5,2.5
+H112_00_008,312,pot,pre-e,120,2.25
+H112_00_010,313,pot,pre-e,108,2.1
+H112_00_011,314,pot,pre-e,123,1.75
+H112_00_012,315,pot,pre-e,106.75,1.8499999999999999
+H112_00_013,316,pot,pre-e,120.5,2.5
+H112_00_014,317,pot,pre-e,130,2.5
+H112_00_015,318,pot,pre-e,120,2.3499999999999996
+H112_00_016,319,pot,pre-e,126.25,2.2
+H112_00_017,320,pot,pre-e,106,2.1
+H112_00_018,321,pot,pre-e,120,2.25
+H112_00_022,322,pot,pre-e,118,2.5
+H162_00_108,323,pot,post-e,99,2.25
+H164_00_005,324,pot,post-e,104.25,1.75
+H164_00_017,325,pot,post-e,120,2.25
+H164_00_018,326,pot,post-e,113.5,3.05
+H166_00_037,327,pot,post-e,125,2.75
+H167_00_1577,328,rim,post-e,121.5,3
+H167_00_1581,329,pot or steamer,post-e,120,2.9000000000000004
+H167_00_1587,330,pot,post-e,120,3
+H167_00_1600,331,pot or steamer,post-e,130,2.25
+H167_00_1601,332,rim,post-e,129.5,2.75
+H167_00_1602,333,pot,post-e,116,2.6
+H167_00_1604,334,pot,post-e,104,2
+H167_00_1605,335,pot,post-e,117,2
+H167_00_1606,336,pot,post-e,120,2.75
+H167_00_1607,337,pot,post-e,105.25,2.5
+H167_00_1609,338,steamer,post-e,NaN,NaN
+H167_00_1723,339,pot,post-e,110,2.2
+H167_00_1726,340,pot,post-e,130,2.3
+H167_00_1727,341,pot,post-e,108.25,2.5
+H167_00_1730,342,pot,post-e,115,2.9
+H167_00_1733,343,pot,post-e,114.5,2.75
+H167_00_1734,344,pot,post-e,110.5,2
+H167_00_1737,345,pot,post-e,124,2.4
+H167_00_1739,346,pot,post-e,116,3.25
+H185_00_133,347,pot or steamer,post-e,112,2.25
+M011_NA_064,348,pot or steamer,pre-e,120,2.25
+M016_NA_001,349,pot or steamer,post-e,113,1.9500000000000002
+M016_NA_014,350,pot,post-e,111.75,2.25
+M018_NA_080,351,pot,pre-e,118.5,2.3
+M023_NA_057,352,pot or steamer,pre-e,107,2.25
+M025_NA_003,353,pot,pre-e,119,2.15
+M033_NA_040,354,pot or steamer,pre-e,120,1.75
+M040_NA_030,355,pot or steamer,post-e,130,2.25
+M074_NA_035,356,pot,pre-e,120,1.85
+M079_NA_022,357,pot,ch-con,128.5,4.25
+M081_NA_095,358,pot or steamer,post-e,119.25,2.2
+M081_NA_162,359,pot,post-e,110,2.25
+M081_NA_163,360,pot or steamer,post-e,97,2.15
+M086_NA_045,361,rim,pre-e,111,1.7999999999999998
+M095_NA_070,362,rim,post-e,112.75,2.6
