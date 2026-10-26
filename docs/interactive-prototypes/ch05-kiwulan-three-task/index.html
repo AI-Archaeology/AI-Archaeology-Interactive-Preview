@@ -44,4 +44,48 @@ async function init(){if(ready)return;status("正在下载并初始化WebR与ggp
 $("run").onclick=async()=>{if(busy)return;busy=true;$("run").disabled=true;$("errors").textContent="";try{await init();status("R正在绘图……");const expr='local({ .plot <- eval(parse(text='+JSON.stringify($("code").value)+'),envir=.GlobalEnv); if(inherits(.plot,"ggplot")) print(.plot) })';const result=await shelter.captureR(expr,{captureGraphics:{width:650,height:420,bg:"white"},withAutoprint:true});$("plot").replaceChildren();for(const img of result.images||[]){const c=document.createElement("canvas");c.width=img.width;c.height=img.height;c.style.width="100%";c.getContext("2d").drawImage(img,0,0);$("plot").append(c)}if(!(result.images||[]).length)throw Error("R未返回可显示的图形");status("绘图完成，可修改代码后再次运行。")}catch(e){status("绘图失败，无代码任务仍可完成。");$("errors").textContent=String(e.stack||e)}finally{try{await shelter?.purge()}catch{}busy=false;$("run").disabled=false}};
 choose("plain");
 try{const response=await fetch(file);if(!response.ok)throw Error("CSV HTTP "+response.status);rows=parseCSV(await response.text());if(rows.length!==362||rows.filter(valid).length!==345)throw Error("362/345数据校验失败");showSample("all");status("真实数据已载入。点击运行R代码并绘图。")}catch(e){$("sample-result").textContent="数据读取失败："+e.message;status("CSV不可用，请先运行prepare_data.py并从HTTP服务器打开页面。")}
-</script></body></html>
+</script>
+<script>
+(() => {
+  if (window.parent === window) return;
+
+  const targetOrigin = "https://ai-archaeology.github.io";
+  const main = document.querySelector("main");
+  if (!main) return;
+
+  let scheduled = false;
+
+  function reportHeight() {
+    scheduled = false;
+
+    const height = Math.ceil(
+      main.getBoundingClientRect().bottom +
+      window.scrollY + 8
+    );
+
+    if (!Number.isFinite(height) ||
+        height < 300 || height > 20000) return;
+
+    window.parent.postMessage({
+      type: "aiarchaeology:ch05-kiwulan-height:v1",
+      height
+    }, targetOrigin);
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(reportHeight);
+  }
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(schedule).observe(main);
+  }
+
+  window.addEventListener("load", schedule);
+  window.addEventListener("resize", schedule);
+
+  schedule();
+})();
+</script>
+</body></html>
