@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>绳文人口史｜真实数据汇总互动V1</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans CJK SC",sans-serif;color:#202b35;background:#f7fafc}
+*{box-sizing:border-box}body{margin:0}.wrap{max-width:950px;margin:auto;padding:22px 16px 55px}h1{font-size:clamp(1.5rem,4vw,2rem);line-height:1.35}h2{font-size:1.22rem}p,li{line-height:1.75}section{background:white;border:1px solid #dbe4e9;border-radius:12px;padding:18px;margin:16px 0}.meta{font-size:.91rem;color:#465664}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}button{font:inherit;border:1px solid #7e98a8;border-radius:8px;padding:9px 12px;background:white;cursor:pointer;color:#173849}button[aria-pressed=true]{background:#184c66;color:white;border-color:#184c66}button:focus-visible,a:focus-visible{outline:3px solid #e38c45;outline-offset:2px}.barrow{display:grid;grid-template-columns:minmax(100px,150px) minmax(0,1fr) 85px;gap:8px;align-items:center;margin:10px 0}.bartrack{height:17px;background:#eaf0f3;border-radius:4px;overflow:hidden}.bar{height:100%;background:#347e99}.number{text-align:right;font-variant-numeric:tabular-nums}.metric{font-size:1.65rem;font-weight:750}.small{font-size:.87rem;color:#526474}.notice{border-left:4px solid #bd7846;padding:9px 12px;background:#fff8f0}.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:350px}td,th{border-bottom:1px solid #dde5e9;padding:8px;text-align:left}td:last-child,th:last-child{text-align:right}fieldset{border:0;padding:0}legend{font-weight:650;margin-bottom:8px}select{font:inherit;padding:8px;border:1px solid #91a5b1;border-radius:6px;max-width:100%}output{display:block;margin:10px 0}.result{padding:10px 12px;background:#edf5f7;border-radius:8px}.hidden{display:none}a{color:#145a80}details{margin-top:12px}summary{cursor:pointer;font-weight:600}@media(max-width:430px){.barrow{grid-template-columns:90px minmax(0,1fr) 65px;font-size:.85rem;gap:5px}section{padding:13px}.wrap{padding:12px 10px 40px}}
+</style></head><body><main class="wrap">
+<h1>绳文人口史：从测年记录到人口推断</h1>
+<p class="meta">第五章独立教学原型 V1 · 无代码 · 真实研究已核汇总数据 · 尚未集成正式教材</p>
+<p>这项练习基于 Crema 与 Kobayashi（2020）的固定 v3.0 研究材料。这里的图表由已核实的原始文件汇总数构成，不是作者人口模型的重新运行结果。</p>
+<section aria-labelledby="date-heading"><h2 id="date-heading">任务一｜2132条记录怎样成为2120条？</h2>
+<p>切换筛选前后，观察记录数量。注意：一条测年记录不一定对应一个独立考古事件。</p>
+<div class="tabs" role="group" aria-label="测年记录状态"><button id="raw" aria-pressed="true" type="button">原始记录</button><button id="filtered" aria-pressed="false" type="button">筛选后</button></div>
+<output id="date-output" class="result" aria-live="polite"></output>
+<label for="phase">查看差额所在阶段：</label> <select id="phase"><option value="all">七阶段合计</option><option>B6</option><option>B3</option><option>B2</option><option>K7</option><option>K2</option><option>Z5</option><option>Z1</option></select>
+<div id="phase-output" class="result" aria-live="polite"></div>
+<details><summary>为什么不能说“12条测年都不可靠”？</summary><p>作者的代码使用组合测年的统计检验和一致性指标筛选记录。我们已经核对筛选前后的12个LabCode，但没有重新运行OxCal或复核每个排除判断的全部统计依据。</p></details>
+</section>
+<section aria-labelledby="houses-heading"><h2 id="houses-heading">任务二｜233条表格记录与9612座住宅</h2>
+<p>选择地区，比较汇总表的行数与住宅计数。两者不是同一种统计单位。</p>
+<fieldset><legend>比较范围</legend><div class="tabs" id="region-buttons"></div></fieldset>
+<div id="house-summary" class="result" aria-live="polite"></div><div id="bars" role="img" aria-label="各县住宅计数条形图"></div>
+<div class="tablewrap"><table><thead><tr><th>县</th><th>汇总行</th><th>Counts之和</th></tr></thead><tbody id="house-rows"></tbody></table></div>
+<details><summary>为什么不能直接把9612当作精确年代的人口数据？</summary><p>住宅计数经过作者按陶器阶段归属和年代不确定性建模，才用于推断人口代理。住宅也不等于居民人数；保存、调查与阶段归属都会影响可见数量。</p></details>
+</section>
+<section aria-labelledby="proxy-heading">
+<h2 id="proxy-heading" class="hidden">任务三｜编辑并运行ggplot2代码</h2>
+
+<iframe id="webr-frame" title="任务三：绳文人口史Figure 3浏览器R代码编辑与ggplot2绘图" src="webr-ggplot/index.html?embedded=1" loading="lazy" style="display:block;width:100%;height:640px;border:1px solid #dce5e8;border-radius:8px;box-sizing:border-box" referrerpolicy="no-referrer"></iframe>
+<p class="small"><a href="webr-ggplot/index.html" target="_blank" rel="noopener noreferrer">单独打开R绘图编辑器</a>（适合较小屏幕）</p>
+<h3>从图形回到考古解释</h3>
+<fieldset><legend>两种人口代理的曲线相似，可以支持什么判断？</legend>
+<div class="tabs"><button type="button" data-claim="a" aria-pressed="false">证明人口必然增长</button><button type="button" data-claim="b" aria-pressed="false">提示可能的共同变化</button><button type="button" data-claim="c" aria-pressed="false">证明测年没有偏差</button></div></fieldset>
+<div id="claim-result" class="result" aria-live="polite">请选择一种解释。</div>
+<details><summary>参考解释</summary><p>住宅和SPD是不同人口代理，但都受到资料形成、采样与年代模型影响。相关或同步变化能够支持进一步研究，不能单独确定古代人口规模及变化原因。需要其他相对独立的考古证据。</p></details>
+<details><summary>继续深入｜研究级R/OxCal复现</summary><p>作者完整研究还包括组合测年筛选、贝叶斯阶段模型、5000次住宅年代模拟、SPD及滚动相关计算。这些步骤不同于使用作者缓存重新绘图。</p><p><a href="FIGURE3-THREE-LAYER-GUIDE.html" target="_blank" rel="noopener noreferrer">阅读研究级复现指南</a> · <a href="figure3-ggplot2.R" target="_blank" rel="noopener noreferrer">查看本地R绘图脚本</a></p></details>
+</section>
+<script>
+(function(){
+const frame=document.getElementById("webr-frame");
+window.addEventListener("message",event=>{
+if(event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+const m=event.data;
+if(!m||m.type!=="aiarchaeology:ch05-webr-height:v1"||!Number.isFinite(m.height)||m.height<300||m.height>20000)return;
+const next=Math.ceil(m.height+4);
+if(Math.abs(frame.getBoundingClientRect().height-next)>2)frame.style.height=next+"px";
+});
+})();
+</script>
+<section><h2>来源、许可与使用边界</h2>
+<p>研究：Crema &amp; Kobayashi (2020), <a href="https://doi.org/10.1016/j.jas.2020.105136">Journal of Archaeological Science 117:105136</a>；<a href="https://github.com/ercrema/jomonPhasesAndPopulation/tree/v.3.0">作者固定v3.0仓库</a>；<a href="https://doi.org/10.5281/zenodo.4308578">Zenodo归档</a>。仓库README标注CC BY 3.0；Suzuki（2006）原始住宅表可能存在独立第三方权利，尚待出版再分发核查。</p>
+<p class="notice">本页仅嵌入已核实的汇总数，没有复制作者的原始CSV、缓存RData或第三方图像。所有数值均为固定v3.0文件的直接汇总；没有重新运行OxCal、5000次模拟或作者的贝叶斯人口模型。</p>
+<button type="button" id="reset">恢复示例</button>
+</section></main>
+<script>
+"use strict";
+const houses=[{name:"Kanagawa",region:"SWKanto",rows:48,count:2724},{name:"Nagano",region:"ChubuHighlands",rows:68,count:2418},{name:"Saitama",region:"SWKanto",rows:46,count:1748},{name:"Tokyo",region:"SWKanto",rows:43,count:2221},{name:"Yamanashi",region:"ChubuHighlands",rows:28,count:501}];
+const phases={B6:[100,96],B3:[45,44],B2:[75,73],K7:[48,47],K2:[105,103],Z5:[60,59],Z1:[57,56]};
+let filtered=false,region="all";
+const $=id=>document.getElementById(id),fmt=n=>n.toLocaleString("en-US");
+function dates(){ $("raw").setAttribute("aria-pressed",String(!filtered));$("filtered").setAttribute("aria-pressed",String(filtered));$("date-output").textContent=(filtered?"筛选后：2,120条记录":"原始：2,132条记录")+"。两者相差12条；42个陶器阶段均有记录。";let k=$("phase").value;if(k==="all"){$("phase-output").textContent="七个阶段共减少12条；其余35个阶段的计数不变。";return}let [a,b]=phases[k];$("phase-output").textContent=k+"阶段：原始"+a+"条，筛选后"+b+"条，减少"+(a-b)+"条。"}
+$("raw").onclick=()=>{filtered=false;dates()};$("filtered").onclick=()=>{filtered=true;dates()};$("phase").onchange=dates;
+function houseRender(){let selected=houses.filter(x=>region==="all"||x.region===region);let rows=selected.reduce((a,x)=>a+x.rows,0),total=selected.reduce((a,x)=>a+x.count,0);$("house-summary").textContent="汇总表："+fmt(rows)+"行；住宅计数Counts合计："+fmt(total)+"。";$("house-rows").replaceChildren();$("bars").replaceChildren();const max=Math.max(...houses.map(x=>x.count));for(let x of selected){let tr=document.createElement("tr");for(let v of [x.name,fmt(x.rows),fmt(x.count)]){let td=document.createElement("td");td.textContent=v;tr.append(td)}$("house-rows").append(tr);let line=document.createElement("div");line.className="barrow";let name=document.createElement("span");name.textContent=x.name;let track=document.createElement("div");track.className="bartrack";let bar=document.createElement("div");bar.className="bar";bar.style.width=(100*x.count/max)+"%";track.append(bar);let n=document.createElement("span");n.className="number";n.textContent=fmt(x.count);line.append(name,track,n);$("bars").append(line)}document.querySelectorAll("[data-region]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.region===region)))}
+for(let [v,label] of [["all","全部五县"],["SWKanto","西南关东"],["ChubuHighlands","中部高地"]]){let b=document.createElement("button");b.type="button";b.dataset.region=v;b.textContent=label;b.onclick=()=>{region=v;houseRender()};$("region-buttons").append(b)}
+document.querySelectorAll("[data-claim]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-claim]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("claim-result").textContent=b.dataset.claim==="b"?"较审慎：两种代理可能呈现共同变化，但还不能直接证明人口规模或变化原因。":"这一结论超出了代理数据所能单独支持的范围。请考虑资料形成偏差、年代不确定性和独立证据。"});
+$("reset").onclick=()=>{filtered=false;region="all";$("phase").value="all";document.querySelectorAll("[data-claim]").forEach(x=>x.setAttribute("aria-pressed","false"));$("claim-result").textContent="请选择一种解释。";document.querySelectorAll("details").forEach(x=>x.open=false);dates();houseRender();window.scrollTo({top:0,behavior:"smooth"})};
+dates();houseRender();
+</script></body></html>

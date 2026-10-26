@@ -1,0 +1,18 @@
+{
+  "source": "Crema and Kobayashi 2020, author v.3.0 cached Figure 3 outputs",
+  "type": "author-cache-derived plotting summaries; not new OxCal runs",
+  "files": {
+    "figure3-panel-a-author-cache.csv": {
+      "rows": 50,
+      "sha256": "0e29e8413f690a384cd0057569df36fee14a14b5c65cef34d1629d44b10580b5"
+    },
+    "figure3-panel-b-author-cache.csv": {
+      "rows": 50,
+      "sha256": "63fff8009fbc401624f8dfdd83d7a8751693113d0b133e7cc8b57c8da7f91685"
+    },
+    "figure3-panel-c-author-cache.csv": {
+      "rows": 50,
+      "sha256": "89bfb2a0e60b1d0d258d05ca9b791c3c3baaa8c2d4e3e05c80d4487d9384975b"
+    }
+  }
+}
