@@ -63,4 +63,67 @@ $("python-run").onclick=async()=>{if(!py)return;const b=$("python-run");b.disabl
 $("r-load").onclick=async()=>{const b=$("r-load");b.disabled=true;status("r","加载中…");try{const {WebR}=await import(R);webR=new WebR();await webR.init();const data=new TextEncoder().encode(await getCSV());await webR.FS.writeFile("/home/web_user/ivories.csv",data);$("r-run").disabled=false;status("r","已就绪")}catch(e){status("r","加载失败："+err(e));b.disabled=false}};
 $("r-run").onclick=async()=>{if(!webR)return;const b=$("r-run");b.disabled=true;status("r","运行中…");try{const code=$("r-code").value;const result=await webR.evalRString('paste(capture.output({'+code+'}),collapse="\\n")');$("r-output").textContent=result||"运行完成（无输出）";status("r","运行完成")}catch(e){$("r-output").textContent=err(e);status("r","执行失败")}finally{b.disabled=false}};
 for(const lang of ["python","r"]){$(lang+"-reset").onclick=()=>{$(lang+"-code").value=defaults[lang];$(lang+"-output").textContent=baseline;status(lang,"已恢复代码与静态预期结果；须重新运行以获取实际输出")}}
-</script></main></body></html>
+</script></main>
+<script>
+(() => {
+  if (window.parent === window) return;
+
+  const allowedOrigins = new Set([
+    "https://ai-archaeology.github.io",
+    "http://localhost:8765",
+    "http://127.0.0.1:8765"
+  ]);
+
+  let lastHeight = -1;
+  let queued = false;
+
+  function report() {
+    queued = false;
+
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const height = Math.ceil(
+      main.getBoundingClientRect().bottom +
+      window.scrollY + 4
+    );
+
+    if (height < 200 || height > 20000 ||
+        height === lastHeight) return;
+
+    lastHeight = height;
+
+    for (const origin of allowedOrigins) {
+      window.parent.postMessage({
+        type: "aiarchaeology:ivory-height:v1",
+        height
+      }, origin);
+    }
+  }
+
+  function schedule() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(report);
+  }
+
+  const main = document.querySelector("main");
+
+  if (main && "ResizeObserver" in window) {
+    new ResizeObserver(schedule).observe(main);
+  }
+
+  new MutationObserver(schedule).observe(document.body, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    attributeFilter: ["open", "hidden", "style", "class"]
+  });
+
+  window.addEventListener("load", schedule);
+  window.addEventListener("resize", schedule);
+
+  schedule();
+})();
+</script>
+</body></html>
