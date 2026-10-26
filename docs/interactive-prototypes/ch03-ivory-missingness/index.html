@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第三章实验｜缺失值怎样改变统计分母</title>
+<style>
+:root{font:16px/1.65 system-ui,-apple-system,"PingFang SC",sans-serif;color:#25333a}*{box-sizing:border-box}body{margin:0;background:#fff}main{max-width:940px;margin:auto;padding:24px 16px 60px}h1{font-size:1.7rem}h2{font-size:1.15rem}.note{background:#f3f7f7;border-left:4px solid #216d76;padding:12px 16px}.panel{border:1px solid #d6e1e4;border-radius:9px;padding:16px;margin:18px 0}textarea{width:100%;height:260px;padding:12px;border:1px solid #9bafb8;border-radius:6px;font:13px/1.55 ui-monospace,Menlo,monospace}button{font:inherit;border-radius:6px;padding:8px 12px;background:#216d76;color:white;border:1px solid #216d76;margin:5px 5px 5px 0;cursor:pointer}button.secondary{background:white;color:#216d76}button:disabled{opacity:.55;cursor:wait}button:focus-visible,textarea:focus-visible{outline:3px solid #e5a53d;outline-offset:2px}pre{background:#f5f8f9;padding:12px;white-space:pre-wrap;overflow:auto;border-radius:6px}.small{font-size:.86rem;color:#56666e}details{border:1px solid #d6e1e4;border-radius:6px;padding:10px;margin-top:10px}summary{cursor:pointer}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #ddd;text-align:left;padding:6px}@media(max-width:500px){main{padding:14px 10px}.panel{padding:10px}textarea{height:290px}}
+</style></head><body><main>
+<p class="small">《AI考古学导论》· 第三章独立技术原型 · 尚未纳入正式教材</p>
+<h1>缺失记录不是“没有”：真实象牙数据实验</h1>
+<p>Gansell等（2014）公开的162条雕刻形象观察记录中，<code>earrings</code>字段有27条yes、86条no、49条空白。你能解释为什么两种计算得到不同百分比吗？</p>
+<div class="note"><strong>真实研究数据：</strong>一行代表雕刻形象观察记录，并非一件独立器物。原始CSV保持只读。数据：Amy Gansell ©2013，<a href="../../data/part1-real-materials/a6/LICENSE-data.md">CC BY-SA 3.0</a>；<a href="../../data/part1-real-materials/provenance.md">来源及校验说明</a>。本实验不证明年代、产地、文化归属或生产组织。</div>
+<section class="panel"><h2>先不用编程</h2>
+<table><thead><tr><th>记录值</th><th>数量</th><th>解释</th></tr></thead><tbody><tr><td>yes</td><td>27</td><td>明确记录有耳饰</td></tr><tr><td>no</td><td>86</td><td>明确记录无耳饰</td></tr><tr><td>空白</td><td>49</td><td>原因未逐格注明，不能改成no</td></tr></tbody></table>
+<p>有效填写的分母为113：27/113≈23.9%；误将空白当作no时，27/162≈16.7%。以下是静态预期值，<strong>不是运行结果</strong>。</p>
+</section>
+<section class="panel"><h2>Python · Pyodide（选做）</h2>
+<label for="python-code">可编辑Python代码（试把field改成headband）</label>
+<textarea id="python-code" spellcheck="false">import csv, io
+field = "earrings"
+rows = list(csv.DictReader(io.StringIO(csv_text)))
+values = [row[field] for row in rows]
+yes = values.count("yes")
+no = values.count("no")
+missing = len(values) - yes - no
+print(f"{field}: yes={yes}, no={no}, missing={missing}")
+print(f"有效分母: {yes+no}, yes比例: {100*yes/(yes+no):.2f}%")
+print(f"错误地把缺失当no: {100*yes/len(values):.2f}%")</textarea>
+<div><button id="python-load">加载Python</button><button id="python-run" disabled>运行Python</button><button class="secondary" id="python-reset">恢复示例</button></div>
+<p id="python-status" role="status">尚未加载</p><pre id="python-output" aria-live="polite">静态预期：earrings yes=27, no=86, missing=49；23.89%与16.67%。</pre>
+</section>
+<section class="panel"><h2>R · webR（选做）</h2>
+<label for="r-code">可编辑R代码（试把field改成headband）</label>
+<textarea id="r-code" spellcheck="false">field <- "earrings"
+data <- read.csv("/home/web_user/ivories.csv",
+                 colClasses="character", na.strings=NULL,
+                 check.names=FALSE, strip.white=FALSE)
+values <- data[[field]]
+yes <- sum(values == "yes", na.rm=TRUE)
+no <- sum(values == "no", na.rm=TRUE)
+missing <- length(values) - yes - no
+cat(sprintf("%s: yes=%d, no=%d, missing=%d\n",field,yes,no,missing))
+cat(sprintf("有效分母: %d, yes比例: %.2f%%\n",yes+no,100*yes/(yes+no)))
+cat(sprintf("错误地把缺失当no: %.2f%%\n",100*yes/length(values)))</textarea>
+<div><button id="r-load">加载R</button><button id="r-run" disabled>运行R</button><button class="secondary" id="r-reset">恢复示例</button></div>
+<p id="r-status" role="status">尚未加载</p><pre id="r-output" aria-live="polite">静态预期：earrings yes=27, no=86, missing=49；23.89%与16.67%。</pre>
+</section>
+<section class="panel"><h2>解释与边界</h2><p>两个百分比的分子没有改变，改变的是分母。若缺失并非随机，排除缺失也不自动得到总体比例。</p>
+<details><summary>提示</summary><p>比较yes、no与空白三个状态；试把字段改为headband。进阶检查border中的空字符串与单个空格。</p></details>
+<details><summary>参考解释</summary><p>这里统计的是形象观察记录中被明确编码的属性，不是独立器物数。计算可以暴露编码选择，却不能替代实物核查、出土语境或历史解释。</p></details>
+<p class="small">运行时从公共CDN按需加载Pyodide或webR，需要网络与设备内存。失败时仍可阅读静态基线。代码在浏览器内执行，不提交至教材服务器；依赖下载会向第三方CDN发出网络请求。</p></section>
+<script type="module">
+const $=id=>document.getElementById(id);
+const PY="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.mjs";
+const R="https://webr.r-wasm.org/v0.5.7/webr.mjs";
+const csvURL=new URL("../../data/part1-real-materials/a6/levantine_ivories.csv",location.href);
+const defaults={python:$("python-code").value,r:$("r-code").value};
+const baseline="静态预期：earrings yes=27, no=86, missing=49；23.89%与16.67%。";
+let py=null,webR=null,csvText=null;
+async function getCSV(){if(csvText!==null)return csvText;const response=await fetch(csvURL);if(!response.ok)throw Error("CSV加载失败："+response.status);csvText=await response.text();return csvText}
+function status(lang,msg){$(lang+"-status").textContent=msg}
+function err(e){return String(e?.message||e)}
+$("python-load").onclick=async()=>{const b=$("python-load");b.disabled=true;status("python","加载中…");try{const {loadPyodide}=await import(PY);py=await loadPyodide({indexURL:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"});await getCSV();$("python-run").disabled=false;status("python","已就绪")}catch(e){status("python","加载失败："+err(e));b.disabled=false}};
+$("python-run").onclick=async()=>{if(!py)return;const b=$("python-run");b.disabled=true;status("python","运行中…");try{py.globals.set("csv_text",await getCSV());py.runPython("import sys,io\n_ai_old=sys.stdout\n_ai_buf=io.StringIO()\nsys.stdout=_ai_buf");try{await py.runPythonAsync($("python-code").value)}finally{py.runPython("sys.stdout=_ai_old")}$("python-output").textContent=py.runPython("_ai_buf.getvalue()")||"运行完成（无输出）";status("python","运行完成")}catch(e){$("python-output").textContent=err(e);status("python","执行失败")}finally{b.disabled=false}};
+$("r-load").onclick=async()=>{const b=$("r-load");b.disabled=true;status("r","加载中…");try{const {WebR}=await import(R);webR=new WebR();await webR.init();const data=new TextEncoder().encode(await getCSV());await webR.FS.writeFile("/home/web_user/ivories.csv",data);$("r-run").disabled=false;status("r","已就绪")}catch(e){status("r","加载失败："+err(e));b.disabled=false}};
+$("r-run").onclick=async()=>{if(!webR)return;const b=$("r-run");b.disabled=true;status("r","运行中…");try{const code=$("r-code").value;const result=await webR.evalRString('paste(capture.output({'+code+'}),collapse="\\n")');$("r-output").textContent=result||"运行完成（无输出）";status("r","运行完成")}catch(e){$("r-output").textContent=err(e);status("r","执行失败")}finally{b.disabled=false}};
+for(const lang of ["python","r"]){$(lang+"-reset").onclick=()=>{$(lang+"-code").value=defaults[lang];$(lang+"-output").textContent=baseline;status(lang,"已恢复代码与静态预期结果；须重新运行以获取实际输出")}}
+</script></main></body></html>
