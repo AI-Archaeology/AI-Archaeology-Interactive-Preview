@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>绳文人口史Figure 3研究级复现指南</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">绳文人口史Figure 3研究级复现指南</h1>
+</header>
+<h1 id="第五章绳文人口史-figure-3三层教学与复现指南-v1">第五章绳文人口史
+Figure 3：三层教学与复现指南 V1</h1>
+<p>状态：独立原型，尚未完成本地R运行/图形验收，不等于原论文全流程复现。</p>
+<h2 id="原始依据">原始依据</h2>
+<p>Crema &amp; Kobayashi (2020), <em>Journal of Archaeological
+Science</em> 117:105136，DOI
+10.1016/j.jas.2020.105136；作者GitHub固定标签 <a
+href="https://github.com/ercrema/jomonPhasesAndPopulation/tree/v.3.0">v.3.0</a>，commit
+a9608543856c3bf22fd94a682ea47e2952c6e1bd。作者Figure
+3原图与绘图代码分别位于 manuscript/figures/figure3.pdf 与 figurelog.R
+第93–134行。原图用Base R绘制，并非ggplot2。仓库README写CC-BY
+3.0，第三方Suzuki（2006）住宅表的再分发范围仍须核查。</p>
+<h2 id="第一层无代码必做">第一层：无代码（必做）</h2>
+<p>打开独立原型index.html的任务三，依次选择a住宅数量、b放射性碳测年SPD、c
+1000年滚动相关。读原图，回答：三者观察单位是否相同？哪幅包含年代模拟不确定范围？为什么c的相关性不能独立证明人口增长的原因？提供静态原图和解释，即使没有R也可完成。按钮改变阅读说明，不改变作者模型结果。</p>
+<h2
+id="第二层ggplot2选做可运行脚本">第二层：ggplot2（选做，可运行脚本）</h2>
+<p>在本地安装R和ggplot2；获取作者固定v3.0仓库（含R_images缓存）。执行：</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--branch</span> v.3.0 <span class="at">--depth</span> 1 https://github.com/ercrema/jomonPhasesAndPopulation.git /tmp/jomon-v3-audit</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">&#39;if (!requireNamespace(&quot;ggplot2&quot;,quietly=TRUE)) install.packages(&quot;ggplot2&quot;,repos=&quot;https://cloud.r-project.org&quot;)&#39;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> interactive-prototypes/ch05-jomon-proxies/figure3-ggplot2.R /tmp/jomon-v3-audit /tmp/jomon-figure3-output</span></code></pre></div>
+<p>运行命令中的脚本路径相对于教材仓库根目录；请先切换回教材根目录再执行。脚本加载作者缓存：
+-
+simdatesPithouses.RData：tblocks.trap（50个100年区间×模拟次数），tbs2（51个边界）；panel
+a均值、2.5%和97.5%分位数。 -
+spdRes.RData：spdDataSPD_blocks$sumblock；panel b作者已经计算的SPD。 -
+comp.RData：tblockRoll10.trap；panel
+c滚动相关均值、2.5%和97.5%分位数（忽略NA）。</p>
+<p>脚本用相邻时间边界中点作为100年箱的ggplot x位置（例如7950、7850…3050
+cal
+BP），x轴由老到新逆向显示；输出三个CSV、三个PNG和三面板PDF。脚本会在缓存对象缺失、区间长度不符或100年箱宽不符时停止，不能自行补造结果。</p>
+<p><strong>重要：</strong> panel
+a/c阴影或误差线是模拟结果的经验分位数，不可未经论证称为独立样本的频率学置信区间；panel
+b是作者的校正SPD，不是未经校正的CRA直方图。ggplot2重绘是<strong>作者缓存结果的可视化复算</strong>，不是OxCal后验的重新估计。新版ggplot的图形外观不必逐像素等同原Base
+R图，但数值与轴单位必须相符。</p>
+<h3 id="第二层验收">第二层验收</h3>
+<p>在Mac运行后检查：脚本输出PASS；三个CSV均为50行、时间中心从7950到3050
+cal BP且步长100；panel a有均值及上下分位数；panel b的SPD与作者Figure
+3中约5000 cal BP附近的峰值相符；panel c相关范围在[-1,1]，并与作者Figure
+3的变化趋势相符。需人工并排检查原PDF和新PDF；在这一步完成前不得声称图形已验证。</p>
+<h2 id="第三层研究级复现进阶">第三层：研究级复现（进阶）</h2>
+<p>作者README与log.R给出研究级工作流： 1.
+从data/c14dates.csv（2132行）读取测年记录；对CombineGroup运行outlierExcluder筛选；缓存c14data.RData保留2120行，12条差额已逐条比对。
+2. 用OxCal
+v4.4及IntCal20/Marine20进行阶段建模，生成多种阶段内分布假设的OxCal脚本；比较agreement并进行第二轮处理。原作者README说明这一阶段耗时较长（log.R中提及约70–90小时），不作为本科必做。
+3.
+从data/suzuki五县CSV汇总233行Counts=9612，再通过orgTable展开为住宅记录；按阶段归属、阶段边界及阶段内不确定性进行5000次模拟。
+4.
+使用rcarbon构建SPD及5000次随机日历日期抽样，按100年区间汇总，计算两种代理的相关与1000年滚动相关；输出RData。
+5. 运行manuscript/figures/figurelog.R复现作者Base
+R原图，再用本课程ggplot2脚本绘制同一缓存的教学版本。</p>
+<p>研究级复现需要锁定R及依赖版本、OxCal执行方式、校正曲线、随机种子/随机抽样条件与输出hash。不能把作者缓存加载成功称为完整分析重跑，也不能保证跨版本随机模拟逐点一致。数据与版权核查完成前，不将全部作者原始文件复制到教材公开仓库。</p>
+<h2 id="尚待验收">尚待验收</h2>
+<p>ggplot2脚本尚未在用户Mac运行，真实缓存对象的维度及生成图形需本地验证。原型尚未完成公开HTTPS、Quarto嵌入、registry与第三方许可审查；第五章正式正文未修改。</p>
+</body>
+</html>

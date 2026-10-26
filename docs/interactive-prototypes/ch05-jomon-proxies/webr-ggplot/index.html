@@ -1,0 +1,86 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>绳文Figure 3｜浏览器R与ggplot2</title><style>
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Noto Sans CJK SC",sans-serif;color:#24323a;background:#f7fafc;margin:0}main{max-width:1000px;margin:auto;padding:24px 16px}h1{font-size:clamp(1.5rem,3vw,2rem)}section{background:white;border:1px solid #dce5e8;border-radius:12px;padding:20px;margin:16px 0}p{line-height:1.7}.muted{color:#536775;font-size:.92rem}button{font:inherit;border:1px solid #648499;background:white;color:#194a62;padding:9px 13px;border-radius:7px;cursor:pointer}button[aria-pressed=true]{background:#164c65;color:white}button:disabled{opacity:.5;cursor:wait}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}textarea{font:14px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;display:block;width:100%;min-height:260px;padding:12px;border:1px solid #9caeb8;border-radius:8px;resize:vertical;tab-size:2}button:focus-visible,textarea:focus-visible{outline:3px solid #f2a34b;outline-offset:2px}#plot canvas{display:block;max-width:100%;height:auto;margin:auto}#plot{min-height:100px;overflow:hidden}#status{padding:12px;background:#eaf3f6;border-radius:8px}#status.error{background:#fff1e9;color:#862f12}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{margin:12px 0}summary{cursor:pointer;font-weight:600}@media(max-width:430px){main{padding:10px}section{padding:12px}textarea{font-size:12px;min-height:300px}}</style></head><body><main>
+<h1>用ggplot2重新绘制绳文人口史Figure 3</h1>
+<p class="muted">第五章 · 独立WebR技术原型 · 浏览器内运行R · 作者固定v3.0缓存数据 · 未集成正式教材</p>
+<section><h2>第一层｜无代码观察</h2><p>先阅读作者<a href="https://github.com/ercrema/jomonPhasesAndPopulation/blob/v.3.0/manuscript/figures/figure3.pdf" target="_blank" rel="noopener noreferrer">Figure 3原图</a>。a为住宅数量及模拟分位数，b为已校正的放射性碳SPD，c为1000年滚动相关及模拟分位数。比较两种代理的时间变化，思考它们能否独立证明人口增长的原因。</p></section>
+<section><h2>任务三｜编辑并运行ggplot2代码</h2>
+<p>在下面直接编辑R代码并运行，绘制住宅数量、放射性碳测年SPD和1000年滚动相关三个面板。无代码读者可以阅读作者<a href="https://github.com/ercrema/jomonPhasesAndPopulation/blob/v.3.0/manuscript/figures/figure3.pdf" target="_blank" rel="noopener noreferrer">Figure 3原图</a>并完成后面的解释任务。浏览器绘图使用作者缓存数值，不会重新运行OxCal。</p>
+<p>首次使用需联网加载WebR和ggplot2。R运行失败不影响原图阅读和考古解释任务。</p>
+<div class="controls" role="group" aria-label="选择绘图面板"><button type="button" data-panel="a" aria-pressed="true">a｜住宅</button><button type="button" data-panel="b" aria-pressed="false">b｜SPD</button><button type="button" data-panel="c" aria-pressed="false">c｜滚动相关</button></div>
+<label for="code"><strong>可编辑R代码</strong></label><textarea id="code" spellcheck="false" aria-describedby="code-help"></textarea><p class="muted" id="code-help">你可以修改颜色、标题、时间范围和图层。绘图数据已经由作者缓存计算，不会随这些编辑重新估计。</p>
+<div class="controls"><button type="button" id="run">运行R代码并绘图</button><button type="button" id="restore">恢复本面板代码</button><button type="button" id="retry">重新初始化R</button></div>
+<div id="status" role="status" aria-live="polite">尚未启动R。请先选择面板，再点击“运行R代码并绘图”。</div><div id="plot" aria-label="运行R代码后生成的图形"></div><pre id="messages" aria-live="polite"></pre>
+<details><summary>数据来源与解释限制</summary><p>绘图CSV来自Crema与Kobayashi（2020）作者v3.0的三个RData缓存，分别记录住宅模拟均值及2.5%／97.5%分位数、SPD汇总值、滚动相关及其分位数。图形可重新绘制，但不等于重新运行OxCal或作者5000次模拟。</p></details>
+</section>
+<section><h2>第三层｜研究级复现（进阶）</h2><p>阅读<a href="../FIGURE3-THREE-LAYER-GUIDE.html">三层教学与研究复现指南</a>，追踪原始测年2132条→筛选后2120条、五县住宅计数9612、OxCal阶段模型、住宅模拟、SPD及滚动相关。完整复现需要独立配置R/OxCal，不是本浏览器任务的必做要求。</p>
+<p class="muted">来源：<a href="https://github.com/ercrema/jomonPhasesAndPopulation/tree/v.3.0">作者v3.0仓库</a>。仓库README标注CC BY 3.0；第三方住宅资料再分发许可仍需核查。此技术原型只加载由作者缓存导出的三个绘图数据表。</p></section></main>
+<script>
+if(new URLSearchParams(location.search).get("embedded")==="1"){
+  document.body.classList.add("embedded");
+  const main=document.querySelector("main");
+  const sections=main.querySelectorAll(":scope > section");
+  main.querySelector("h1").hidden=true;
+  main.querySelector("p.muted").hidden=true;
+  if(sections[0])sections[0].hidden=true;
+  if(sections[2])sections[2].hidden=true;
+}
+</script>
+<style>body.embedded{background:white}body.embedded main{padding:8px;max-width:none}body.embedded section{margin:0;border:0;padding:8px}</style>
+<script type="module">
+import {WebR} from "https://webr.r-wasm.org/v0.6.0/webr.mjs";
+const $=id=>document.getElementById(id);
+const templates={
+a:`library(ggplot2)
+ggplot(pit_data, aes(x = calBP, y = mean)) +
+  geom_col(width = 100, fill = "darkorange") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 15) +
+  scale_x_reverse(limits = c(8000, 3000)) +
+  coord_cartesian(ylim = c(0, 1800)) +
+  labs(x = "cal BP", y = "Number of pit-dwellings", title = "a  Pit-dwellings") +
+  theme_classic()`,
+b:`library(ggplot2)
+ggplot(spd_data, aes(x = calBP, y = spd)) +
+  geom_col(width = 100, fill = "royalblue") +
+  scale_x_reverse(limits = c(8000, 3000)) +
+  labs(x = "cal BP", y = "Summed probability of 14C dates", title = "b  Radiocarbon SPD") +
+  theme_classic()`,
+c:`library(ggplot2)
+ggplot(correlation_data, aes(x = calBP, y = mean)) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "grey80", na.rm = TRUE) +
+  geom_line(linewidth = 0.7, na.rm = TRUE) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "firebrick") +
+  scale_x_reverse(limits = c(8000, 3000)) +
+  coord_cartesian(ylim = c(-1, 1)) +
+  labs(x = "cal BP", y = "1000-year rolling correlation", title = "c  Rolling correlation") +
+  theme_classic()`};
+let active="a",runtime=null,shelter=null,ready=false,busy=false;
+function status(message,error=false){$("status").textContent=message;$("status").classList.toggle("error",error)}
+function choose(k){active=k;$("code").value=templates[k];document.querySelectorAll("[data-panel]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.panel===k)))}
+document.querySelectorAll("[data-panel]").forEach(b=>b.onclick=()=>choose(b.dataset.panel));
+$("restore").onclick=()=>choose(active);
+async function init(){if(ready)return;status("正在初始化WebR并下载ggplot2及其依赖……");runtime=new WebR({interactive:false});await runtime.init();await runtime.installPackages(["ggplot2"]);await runtime.evalRVoid('library(ggplot2)');for(const [name,file] of Object.entries({pit_data:"figure3-panel-a-author-cache.csv",spd_data:"figure3-panel-b-author-cache.csv",correlation_data:"figure3-panel-c-author-cache.csv"})){const response=await fetch("./data/"+file,{cache:"no-store"});if(!response.ok)throw new Error(file+" HTTP "+response.status+"；请先运行数据导出脚本并将三个CSV放到data/目录。");const bytes=new Uint8Array(await response.arrayBuffer());await runtime.FS.writeFile("/home/web_user/"+file,bytes);await runtime.evalRVoid(name+' <- read.csv("/home/web_user/'+file+'")');}
+shelter=await new runtime.Shelter();ready=true;status("R和ggplot2已准备就绪。可以修改代码并运行。")}
+async function run(){if(busy)return;busy=true;$("run").disabled=true;$("retry").disabled=true;$("plot").replaceChildren();$("messages").textContent="";try{await init();status("正在运行R代码……");const code=$("code").value;// captureR does not guarantee console-style auto-printing of a returned ggplot.
+const wrapped='local({ .ch05_plot <- eval(parse(text='+JSON.stringify(code)+'), envir=.GlobalEnv); if (inherits(.ch05_plot, "ggplot")) print(.ch05_plot) })';
+const result=await shelter.captureR(wrapped,{captureGraphics:{width:620,height:400,bg:"white"},withAutoprint:true});const output=(result.output||[]).map(x=>x.data||"").join("\n");$("messages").textContent=output;const imgs=result.images||[];if(!imgs.length)throw new Error("R已执行，但未捕获图形。请确认代码最后一个表达式返回ggplot对象，或显式调用print(p)。");for(const img of imgs){const canvas=document.createElement("canvas");canvas.width=img.width;canvas.height=img.height;canvas.style.width="100%";canvas.style.maxWidth="800px";canvas.getContext("2d").drawImage(img,0,0);$("plot").append(canvas)}status("绘图完成。可修改代码再次运行。");}catch(err){status("运行失败："+String(err.message||err)+"。无代码阅读不受影响。",true);$("messages").textContent=String(err.stack||err)}finally{try{await shelter?.purge()}catch{}busy=false;$("run").disabled=false;$("retry").disabled=false}}
+$("run").onclick=run;$("retry").onclick=()=>{if(busy)return;runtime=null;shelter=null;ready=false;status("已清除运行状态。点击运行按钮重新初始化。")};choose("a");
+
+// Report the document height to the same-origin parent when embedded.
+(function(){
+  let scheduled=false;
+  function report(){
+    scheduled=false;
+    const main=document.querySelector("main");
+    const height=Math.ceil(main.getBoundingClientRect().bottom + window.scrollY + 8);
+    if(window.parent!==window && Number.isFinite(height)){
+      window.parent.postMessage({type:"aiarchaeology:ch05-webr-height:v1",height},window.location.origin);
+    }
+  }
+  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(report)}}
+  if("ResizeObserver" in window)new ResizeObserver(schedule).observe(document.querySelector("main"));
+  new MutationObserver(schedule).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["open","style","class"]});
+  window.addEventListener("load",schedule);
+  window.addEventListener("resize",schedule);
+  schedule();
+})();
+</script></body></html>
