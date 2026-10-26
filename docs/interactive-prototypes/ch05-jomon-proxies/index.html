@@ -65,4 +65,52 @@ for(let [v,label] of [["all","全部五县"],["SWKanto","西南关东"],["ChubuH
 document.querySelectorAll("[data-claim]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-claim]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("claim-result").textContent=b.dataset.claim==="b"?"较审慎：两种代理可能呈现共同变化，但还不能直接证明人口规模或变化原因。":"这一结论超出了代理数据所能单独支持的范围。请考虑资料形成偏差、年代不确定性和独立证据。"});
 $("reset").onclick=()=>{filtered=false;region="all";$("phase").value="all";document.querySelectorAll("[data-claim]").forEach(x=>x.setAttribute("aria-pressed","false"));$("claim-result").textContent="请选择一种解释。";document.querySelectorAll("details").forEach(x=>x.open=false);dates();houseRender();window.scrollTo({top:0,behavior:"smooth"})};
 dates();houseRender();
-</script></body></html>
+</script>
+<script>
+(() => {
+  if (window.parent === window) return;
+
+  const expectedOrigin =
+    "https://ai-archaeology.github.io";
+
+  let scheduled = false;
+
+  function reportHeight() {
+    scheduled = false;
+
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const height = Math.ceil(
+      main.getBoundingClientRect().bottom +
+      window.scrollY + 8
+    );
+
+    if (!Number.isFinite(height) ||
+        height < 300 || height > 20000) return;
+
+    window.parent.postMessage({
+      type: "aiarchaeology:ch05-jomon-height:v1",
+      height
+    }, expectedOrigin);
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(reportHeight);
+  }
+
+  const main = document.querySelector("main");
+
+  if (main && "ResizeObserver" in window) {
+    new ResizeObserver(schedule).observe(main);
+  }
+
+  window.addEventListener("load", schedule);
+  window.addEventListener("resize", schedule);
+
+  schedule();
+})();
+</script>
+</body></html>
