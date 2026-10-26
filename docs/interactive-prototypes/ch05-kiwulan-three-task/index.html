@@ -4,7 +4,7 @@
 <p class="muted">第五章独立教学原型 · Wang与Marwick（2020）公开度量数据 · 无代码任务必做，R绘图选做 · 尚未嵌入正式教材</p>
 <section><h2>任务一｜从362条记录到345条分析记录</h2><p>二维散点图需要同时具备口径和口缘厚度。请切换观察原始记录与完整案例；缺失不能被自动改成0。</p><div class="buttons"><button data-sample="all" aria-pressed="true">原始记录</button><button data-sample="complete" aria-pressed="false">两变量完整案例</button><button data-sample="excluded" aria-pressed="false">排除记录</button></div><div id="sample-result" class="result" aria-live="polite">正在读取数据……</div><div id="part-table"></div><p class="muted">注意：全部11条器底记录缺少至少一项口沿测量；筛选改变了器物部位构成，并非随机删除17件器物。</p></section>
 <section><h2>任务二｜哪些字段应该进入模型？</h2><p>点击字段检查其角色。这里模拟的是课程两变量无监督分析，不是作者73件完整器形的EFA/PCA复现。</p><div id="roles" class="buttons"></div><div id="role-result" class="result" aria-live="polite">请选择一个字段。</div><p class="muted">两项数值特征进入模型；period、Part和记录标识只用于回查或事后比较。当前没有Target。</p></section>
-<section><h2>任务三｜编辑并运行ggplot2代码</h2><p>用作者公开数据的两项口沿测量绘制散点图。可以修改颜色、透明度和分期着色；不重新运行作者的轮廓EFA/PCA，也不把分期当作聚类输入。</p><div class="buttons"><button data-template="plain" aria-pressed="true">按尺寸绘图</button><button data-template="period" aria-pressed="false">按历史分期着色</button></div><label for="code"><strong>可编辑R代码</strong></label><textarea id="code" spellcheck="false"></textarea><div class="buttons"><button id="run">运行R代码并绘图</button><button id="restore">恢复本示例</button></div><div id="status" class="result" role="status" aria-live="polite">先准备真实数据；首次运行R需联网加载WebR和ggplot2。</div><div id="plot" aria-label="R生成的散点图"></div><pre id="errors"></pre><details><summary>参考解释与研究级延伸</summary><p>口径相似不等于器形整体相同；分期颜色来自考古背景，不是算法发现的分类。41毫米的P054_04_771与64毫米的P082_04_536是真实记录，不应为了图形美观删除。作者原研究分析73件可重建器形的轮廓，采用EFA/PCA等方法研究标准化；本练习只使用362条度量记录中的345条完整案例。</p><p><a href="https://github.com/LiYingWang/kwl.pottery/tree/d2e113328562e3d00618e50cdb29f4fc4a0a98f5" target="_blank" rel="noopener noreferrer">作者固定研究仓库</a> · <a href="https://doi.org/10.17605/OSF.IO/ABVGF" target="_blank" rel="noopener noreferrer">OSF研究资料</a></p></details></section>
+<section><h2>任务三｜编辑并运行ggplot2代码</h2><p>用作者公开数据的两项口沿测量绘制散点图。可以修改颜色、透明度和分期着色；不重新运行作者的轮廓EFA/PCA，也不把分期当作聚类输入。</p><div class="buttons"><button data-template="plain" aria-pressed="true">不区分历史分期</button><button data-template="period" aria-pressed="false">按历史分期着色</button></div><label for="code"><strong>可编辑R代码</strong></label><textarea id="code" spellcheck="false"></textarea><div class="buttons"><button id="run">运行R代码并绘图</button><button id="restore">恢复本示例</button></div><div id="status" class="result" role="status" aria-live="polite">先准备真实数据；首次运行R需联网加载WebR和ggplot2。</div><div id="plot" aria-label="R生成的散点图"></div><pre id="errors"></pre><details><summary>参考解释与研究级延伸</summary><p>口径相似不等于器形整体相同；分期颜色来自考古背景，不是算法发现的分类。41毫米的P054_04_771与64毫米的P082_04_536是真实记录，不应为了图形美观删除。作者原研究分析73件可重建器形的轮廓，采用EFA/PCA等方法研究标准化；本练习只使用362条度量记录中的345条完整案例。</p><p><a href="https://github.com/LiYingWang/kwl.pottery/tree/d2e113328562e3d00618e50cdb29f4fc4a0a98f5" target="_blank" rel="noopener noreferrer">作者固定研究仓库</a> · <a href="https://doi.org/10.17605/OSF.IO/ABVGF" target="_blank" rel="noopener noreferrer">OSF研究资料</a></p></details></section>
 <p class="muted">来源：Wang与Marwick（2020），DOI 10.1016/j.jasrep.2020.102554。作者仓库：数据CC0（请求署名）、代码MIT、文字与图件CC BY 4.0。课程提取六列，保留362条记录与原始缺失标记。需网络才能运行可选R代码。</p></main>
 <script type="module">
 const $=id=>document.getElementById(id);
@@ -37,8 +37,19 @@ ggplot(complete_data, aes(x = Dia_Rim_ave, y = Thick_Rim_ave, colour = period)) 
   labs(x = "Rim diameter (mm)", y = "Rim thickness (mm)", colour = "Period") +
   theme_classic()`};
 function choose(k){template=k;$("code").value=code[k];document.querySelectorAll("[data-template]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.template===k)))}
-document.querySelectorAll("[data-template]").forEach(b=>b.onclick=()=>choose(b.dataset.template));
-$("restore").onclick=()=>choose(template);
+document.querySelectorAll("[data-template]").forEach(b => {
+  b.onclick = async () => {
+    if (busy) return;
+    choose(b.dataset.template);
+    await $("run").onclick();
+  };
+});
+
+$("restore").onclick = async () => {
+  if (busy) return;
+  choose(template);
+  await $("run").onclick();
+};
 function status(s){$("status").textContent=s}
 async function init(){if(ready)return;status("正在下载并初始化WebR与ggplot2……");const {WebR}=await import("https://webr.r-wasm.org/v0.6.0/webr.mjs");webr=new WebR({interactive:false});await webr.init();await webr.installPackages(["ggplot2"]);const response=await fetch(file);if(!response.ok)throw Error("CSV HTTP "+response.status);await webr.FS.writeFile("/home/web_user/kiwulan.csv",new Uint8Array(await response.arrayBuffer()));await webr.evalRVoid('all_data <- read.csv("/home/web_user/kiwulan.csv", na.strings=c("NA","NaN","")); complete_data <- subset(all_data, is.finite(Dia_Rim_ave) & is.finite(Thick_Rim_ave)); stopifnot(nrow(all_data)==362, nrow(complete_data)==345)');shelter=await new webr.Shelter();ready=true}
 $("run").onclick=async()=>{if(busy)return;busy=true;$("run").disabled=true;$("errors").textContent="";try{await init();status("R正在绘图……");const expr='local({ .plot <- eval(parse(text='+JSON.stringify($("code").value)+'),envir=.GlobalEnv); if(inherits(.plot,"ggplot")) print(.plot) })';const result=await shelter.captureR(expr,{captureGraphics:{width:650,height:420,bg:"white"},withAutoprint:true});$("plot").replaceChildren();for(const img of result.images||[]){const c=document.createElement("canvas");c.width=img.width;c.height=img.height;c.style.width="100%";c.getContext("2d").drawImage(img,0,0);$("plot").append(c)}if(!(result.images||[]).length)throw Error("R未返回可显示的图形");status("绘图完成，可修改代码后再次运行。")}catch(e){status("绘图失败，无代码任务仍可完成。");$("errors").textContent=String(e.stack||e)}finally{try{await shelter?.purge()}catch{}busy=false;$("run").disabled=false}};
